@@ -2,5 +2,8 @@
 
 
 ---
-
+name: azure-vote
+type: static
+method: local
+path: ./vote-deploy
 
