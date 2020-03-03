@@ -82,9 +82,3 @@ spec:
   selector:
     app: azure-vote-front
 
----
-name: azure-vote
-type: static
-method: local
-path: ./vote-deploy
-
