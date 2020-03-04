@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
         - name: mywebapp
-          image: andrebriggs/goserver:v1.1
+          image: andrebriggs/goserver:v1.2
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
