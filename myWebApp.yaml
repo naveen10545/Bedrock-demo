@@ -3,21 +3,21 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: mywebapp
+  name: mywebapp-workorder
   labels:
-    app: mywebapp
+    app: mywebapp-workorder
 spec:
   type: LoadBalancer
   ports:
     - port: 8080
       name: http
   selector:
-    app: mywebapp
+    app: mywebapp-workorder
 ---
 apiVersion: extensions/v1beta1 #TODO: Migrate to apps/v1
 kind: Deployment
 metadata:
-  name: mywebapp1-v1
+  name: mywebapp-workorder-v1
 spec:
   replicas: 3
   minReadySeconds: 10 # Wait 2 seconds after each new pod comes up before marked as "ready"
@@ -29,11 +29,11 @@ spec:
   template:
     metadata:
       labels:
-        app: mywebapp
+        app: mywebapp-workorder
         version: v1
     spec:
       containers:
-        - name: mywebapp1
+        - name: mywebapp-workorder
           image: acrcopopreprod.azurecr.io/copo-workorder-service-dev:latest
           imagePullPolicy: IfNotPresent
           ports:
@@ -44,21 +44,21 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mywebapp
+  name: mywebapp-org
   labels:
-    app: mywebapp
+    app: mywebapp-org
 spec:
   type: LoadBalancer
   ports:
     - port: 8080
       name: http
   selector:
-    app: mywebapp
+    app: mywebapp-org
 ---
 apiVersion: extensions/v1beta1 #TODO: Migrate to apps/v1
 kind: Deployment
 metadata:
-  name: mywebapp2-v1
+  name: mywebapp-org-v1
 spec:
   replicas: 3
   minReadySeconds: 10 # Wait 2 seconds after each new pod comes up before marked as "ready"
@@ -70,12 +70,12 @@ spec:
   template:
     metadata:
       labels:
-        app: mywebapp
+        app: mywebapp-org
         version: v1
     spec:
       containers:
-        - name: mywebapp2
-          image: acrcopopreprod.azurecr.io/copo-organisation-service-dev:latest
+        - name: mywebapp-org
+          image: acrcopopreprod.azurecr.io/copo-organization-service-dev:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -85,21 +85,21 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mywebapp
+  name: mywebapp-common
   labels:
-    app: mywebapp
+    app: mywebapp-common
 spec:
   type: LoadBalancer
   ports:
     - port: 8080
       name: http
   selector:
-    app: mywebapp
+    app: mywebapp-common
 ---
 apiVersion: extensions/v1beta1 #TODO: Migrate to apps/v1
 kind: Deployment
 metadata:
-  name: mywebapp3-v1
+  name: mywebapp-common-v1
 spec:
   replicas: 3
   minReadySeconds: 10 # Wait 2 seconds after each new pod comes up before marked as "ready"
@@ -111,11 +111,53 @@ spec:
   template:
     metadata:
       labels:
-        app: mywebapp
+        app: mywebapp-common
         version: v1
     spec:
       containers:
-        - name: mywebapp3
+        - name: mywebapp-common
+          image: acrcopopreprod.azurecr.io/copo-common-service-dev:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+   
+   ---
+  # mywebapp services
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: mywebapp-ui
+  labels:
+    app: mywebapp-ui
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8080
+      name: http
+  selector:
+    app: mywebapp-ui
+---
+apiVersion: extensions/v1beta1 #TODO: Migrate to apps/v1
+kind: Deployment
+metadata:
+  name: mywebapp-ui-v1
+spec:
+  replicas: 3
+  minReadySeconds: 10 # Wait 2 seconds after each new pod comes up before marked as "ready"
+  strategy:
+    type: RollingUpdate # describe how we do rolling updates
+    rollingUpdate:
+      maxUnavailable: 1 # When updating take one pod down at a time
+      maxSurge: 1 # When updating never have more than one extra pod. If replicas = 2 then never 3 pods when updating
+  template:
+    metadata:
+      labels:
+        app: mywebapp-ui
+        version: v1
+    spec:
+      containers:
+        - name: mywebapp-ui
           image: acrcopopreprod.azurecr.io/copo-ui-service-dev:latest
           imagePullPolicy: IfNotPresent
           ports:
