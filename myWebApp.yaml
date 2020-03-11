@@ -3,21 +3,21 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: mywebapp-workorder1
+  name: mywebapp1-workorder
   labels:
-    app: mywebapp-workorder1
+    app: mywebapp1-workorder
 spec:
   type: ClusterIP
   ports:
     - port: 8080
       name: http
   selector:
-    app: mywebapp-workorder1
+    app: mywebapp1-workorder
 ---
 apiVersion: extensions/v1beta1 #TODO: Migrate to apps/v1
 kind: Deployment
 metadata:
-  name: mywebapp-workorder1-v1
+  name: mywebapp1-workorder-v1
 spec:
   replicas: 3
   minReadySeconds: 10 # Wait 2 seconds after each new pod comes up before marked as "ready"
@@ -29,11 +29,11 @@ spec:
   template:
     metadata:
       labels:
-        app: mywebapp-workorder1
+        app: mywebapp1-workorder
         version: v1
     spec:
       containers:
-        - name: mywebapp-workorder1
+        - name: mywebapp1-workorder
           image: acrcopopreprod.azurecr.io/copo-workorder-service-dev:latest
           imagePullPolicy: IfNotPresent
           ports:
@@ -46,21 +46,21 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mywebapp-common
+  name: mywebapp1-common
   labels:
-    app: mywebapp-common
+    app: mywebapp1-common
 spec:
   type: ClusterIP
   ports:
     - port: 8080
       name: http
   selector:
-    app: mywebapp-common
+    app: mywebapp1-common
 ---
 apiVersion: extensions/v1beta1 #TODO: Migrate to apps/v1
 kind: Deployment
 metadata:
-  name: mywebapp-common-v1
+  name: mywebapp1-common-v1
 spec:
   replicas: 3
   minReadySeconds: 10 # Wait 2 seconds after each new pod comes up before marked as "ready"
@@ -72,11 +72,11 @@ spec:
   template:
     metadata:
       labels:
-        app: mywebapp-common
+        app: mywebapp1-common
         version: v1
     spec:
       containers:
-        - name: mywebapp-common
+        - name: mywebapp1-common
           image: acrcopopreprod.azurecr.io/copo-common-service-dev:latest
           imagePullPolicy: IfNotPresent
           ports:
@@ -88,21 +88,21 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mywebapp-org
+  name: mywebapp1-org
   labels:
-    app: mywebapp-org
+    app: mywebapp1-org
 spec:
   type: ClusterIP
   ports:
     - port: 8080
       name: http
   selector:
-    app: mywebapp-org
+    app: mywebapp1-org
 ---
 apiVersion: extensions/v1beta1 #TODO: Migrate to apps/v1
 kind: Deployment
 metadata:
-  name: mywebapp-org-v1
+  name: mywebapp1-org-v1
 spec:
   replicas: 3
   minReadySeconds: 10 # Wait 2 seconds after each new pod comes up before marked as "ready"
@@ -114,11 +114,11 @@ spec:
   template:
     metadata:
       labels:
-        app: mywebapp-org
+        app: mywebapp1-org
         version: v1
     spec:
       containers:
-        - name: mywebapp-org
+        - name: mywebapp1-org
           image: acrcopopreprod.azurecr.io/copo-organization-service-dev:latest
           imagePullPolicy: IfNotPresent
           ports:
@@ -131,21 +131,21 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mywebapp-ui
+  name: mywebapp1-ui
   labels:
-    app: mywebapp-ui
+    app: mywebapp1-ui
 spec:
   type: ClusterIP
   ports:
     - port: 80
       name: http
   selector:
-    app: mywebapp-ui
+    app: mywebapp1-ui
 ---
 apiVersion: extensions/v1beta1 #TODO: Migrate to apps/v1
 kind: Deployment
 metadata:
-  name: mywebapp-ui-v1
+  name: mywebapp1-ui-v1
 spec:
   replicas: 3
   minReadySeconds: 10 # Wait 2 seconds after each new pod comes up before marked as "ready"
@@ -157,11 +157,11 @@ spec:
   template:
     metadata:
       labels:
-        app: mywebapp-ui
+        app: mywebapp1-ui
         version: v1
     spec:
       containers:
-        - name: mywebapp-ui
+        - name: mywebapp1-ui
           image: acrcopopreprod.azurecr.io/copo-ui-service-dev:latest
           imagePullPolicy: IfNotPresent
           ports:
