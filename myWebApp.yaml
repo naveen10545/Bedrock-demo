@@ -3,21 +3,21 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: mywebapp-workorder
+  name: mywebapp-workorder1
   labels:
-    app: mywebapp-workorder
+    app: mywebapp-workorder1
 spec:
   type: ClusterIP
   ports:
     - port: 8080
       name: http
   selector:
-    app: mywebapp-workorder
+    app: mywebapp-workorder1
 ---
 apiVersion: extensions/v1beta1 #TODO: Migrate to apps/v1
 kind: Deployment
 metadata:
-  name: mywebapp-workorder-v1
+  name: mywebapp-workorder1-v1
 spec:
   replicas: 3
   minReadySeconds: 10 # Wait 2 seconds after each new pod comes up before marked as "ready"
@@ -29,11 +29,11 @@ spec:
   template:
     metadata:
       labels:
-        app: mywebapp-workorder
+        app: mywebapp-workorder1
         version: v1
     spec:
       containers:
-        - name: mywebapp-workorder
+        - name: mywebapp-workorder1
           image: acrcopopreprod.azurecr.io/copo-workorder-service-dev:latest
           imagePullPolicy: IfNotPresent
           ports:
