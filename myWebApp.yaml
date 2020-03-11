@@ -7,7 +7,7 @@ metadata:
   labels:
     app: mywebapp-workorder
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - port: 8080
       name: http
@@ -50,7 +50,7 @@ metadata:
   labels:
     app: mywebapp-common
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - port: 8080
       name: http
@@ -92,7 +92,7 @@ metadata:
   labels:
     app: mywebapp-org
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - port: 8080
       name: http
@@ -135,7 +135,7 @@ metadata:
   labels:
     app: mywebapp-ui
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - port: 80
       name: http
