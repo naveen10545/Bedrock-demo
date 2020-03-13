@@ -176,7 +176,7 @@ spec:
     spec:
       containers:
         - name: mywebapp1-ui
-          image: acrcopopreprod.azurecr.io/copo-ui-service-dev:latest
+          image: acrcopopreprod.azurecr.io/copo-ui-dev:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
